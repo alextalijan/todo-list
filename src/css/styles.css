@@ -57,7 +57,7 @@ body {
     height: 88%;
     background-color: inherit;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-auto-rows: 300px;
     padding: 2rem;
     gap: 2rem;
@@ -86,13 +86,16 @@ body {
 }
 
 .low-priority {
-    
+    background-color: #FEF9C3;
+    color: #92400E;
 }
 
 .medium-priority {
-
+    background-color: #FDE68A;
+    color: #B45309;
 }
 
 .high-priority {
-
+    background-color: #FCA5A5;
+    color: #7F1D1D;
 }

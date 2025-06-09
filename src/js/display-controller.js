@@ -5,6 +5,8 @@ const displayController = (function () {
         for (const project of projects) {
             const projectDiv = document.createElement("div");
             projectDiv.className = "project-card";
+            // Depending on priority of project, add relevant color to the card
+            projectDiv.classList.add(`${project.priority}-priority`);
 
             const heading = document.createElement("h2");
             heading.textContent = project.title;

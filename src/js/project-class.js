@@ -21,7 +21,7 @@ class Task {
 
 export class Project {
 
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority = "low") {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
