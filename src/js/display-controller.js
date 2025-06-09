@@ -1,4 +1,4 @@
-export const displayController = function () {
+const displayController = (function () {
     const render = function (projects) {
         const projectsDiv = document.querySelector("#projects");
 
@@ -26,4 +26,6 @@ export const displayController = function () {
     };
 
     return { render };
-};
+})();
+
+export { displayController };
