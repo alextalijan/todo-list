@@ -8,8 +8,37 @@
   <body>
     <header class="header">
       <img src="./img/logo.png" alt="logo" width="250" class="logo">
-      <button type="button">New Project</button>
+      <button class="new-project-btn" type="button">New Project</button>
     </header>
+    <dialog class="modal">
+      <button class="modal-close-btn">x</button>
+      <form action="">
+        <h2>New Project</h2>
+        <div>
+          <label for="project-title">Title</label>
+          <input type="text" id="project-title" placeholder="E.g. Capstone Project">
+
+          <label for="project-description">Description</label>
+          <textarea id="project-description" rows="3" placeholder="Final test to graduate from uni."></textarea>
+
+          <label for="project-due-date">Due Date</label>
+          <input type="date" id="project-due-date">
+
+          <fieldset>
+            <legend>What is the priority of this project?</legend>
+
+            <input type="radio" name="priority" value="low" id="lowPriority">
+            <label for="lowPriority">Low</label>
+
+            <input type="radio" name="priority" value="medium" id="mediumPriority">
+            <label for="mediumPriority">Medium</label>
+
+            <input type="radio" name="priority" value="high" id="highPriority">
+            <label for="highPriority">High</label>
+          </fieldset>
+        </div>
+      </form>
+    </dialog>
     <h1 class="title">My Projects</h1>
     <div id="projects" class="projects">
       <div class="project-card medium-priority">

@@ -13,3 +13,14 @@ const project1 = new Project("Test",
 myProjects.push(project1);
 
 displayController.render(myProjects);
+
+const newProjectBtn = document.querySelector(".new-project-btn");
+const modal = document.querySelector(".modal");
+newProjectBtn.addEventListener("click", () => {
+    const modal = document.querySelector(".modal");
+    modal.showModal();
+});
+const closeModalBtn = document.querySelector(".modal-close-btn");
+closeModalBtn.addEventListener("click", () => {
+    modal.close();
+})
