@@ -97,6 +97,11 @@ body {
     padding: 0.3rem;
 }
 
+.modal > form input:user-invalid,
+.modal > form textarea:user-invalid {
+    border: 2px dashed red;
+}
+
 #project-description {
     resize: none;
 }

@@ -15,19 +15,19 @@
       <form action="">
         <h2>New Project</h2>
         <div>
-          <label for="project-title">Title</label>
-          <input type="text" id="project-title" placeholder="E.g. Capstone Project">
+          <label for="project-title">Title<span aria-label="required">*</span></label>
+          <input type="text" id="project-title" placeholder="E.g. Capstone Project" required>
 
-          <label for="project-description">Description</label>
-          <textarea id="project-description" rows="3" placeholder="Final test to graduate from uni."></textarea>
+          <label for="project-description">Description<span aria-label="required">*</span></label>
+          <textarea id="project-description" rows="3" placeholder="Final test to graduate from uni." required></textarea>
 
-          <label for="project-due-date">Due Date</label>
-          <input type="date" id="project-due-date">
+          <label for="project-due-date">Due Date<span aria-label="required">*</span></label>
+          <input type="date" id="project-due-date" required>
 
           <fieldset>
-            <legend>What is the priority of this project?</legend>
+            <legend>What is the priority of this project?<span aria-label="required">*</span></legend>
 
-            <input type="radio" name="priority" value="low" id="lowPriority">
+            <input type="radio" name="priority" value="low" id="lowPriority" required>
             <label for="lowPriority">Low</label>
 
             <input type="radio" name="priority" value="medium" id="mediumPriority">
