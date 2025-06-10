@@ -8,11 +8,13 @@ const projectManager = (function() {
         pubSub.publish("projectsChanged", myProjects);
     };
 
-    const removeProject = function (project) {
-        indexToRemove = myProjects.indexOf(project);
-        if (indexToRemove !== -1) {
-            myProjects.splice(indexToRemove, 1);
-            pubSub.publish("projectsChanged", myProjects);
+    const removeProject = function (projectIdToRemove) {
+        for (let i = 0; i < myProjects.length; i++) {
+            if (myProjects[i].id === projectIdToRemove) {
+                myProjects.splice(i, 1);
+                pubSub.publish("projectsChanged", myProjects);
+                break;
+            }
         }
     };
 

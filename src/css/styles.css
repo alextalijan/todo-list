@@ -59,19 +59,21 @@ body {
     box-shadow: 2px 2px 5px gray;
 }
 
-.modal-close-btn {
+.modal-close-btn,
+.remove-project-btn {
     border: none;
     padding: 0.05em 0.3em;
     position: absolute;
     right: 5%;
     top: 10%;
     cursor: pointer;
-    background-color: #FCA5A5;
+    background-color: #F87171;
     transition: background-color 0.2s ease;
 }
 
-.modal-close-btn:hover {
-    background-color: #F87171;
+.modal-close-btn:hover,
+.remove-project-btn:hover {
+    background-color: #EF4444;
 }
 
 .modal > form {

@@ -22,6 +22,7 @@ class Task {
 export class Project {
 
     constructor(title, description, dueDate, priority = "low") {
+        this.id = crypto.randomUUID();
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

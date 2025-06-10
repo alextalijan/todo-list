@@ -1,3 +1,5 @@
+import { projectManager } from "./project-manager.js";
+
 const displayController = (function () {
     const render = function (projects) {
         const projectsDiv = document.querySelector("#projects");
@@ -5,9 +7,17 @@ const displayController = (function () {
 
         for (const project of projects) {
             const projectDiv = document.createElement("div");
+            projectDiv.setAttribute("data-project-id", project.id);
             projectDiv.className = "project-card";
             // Depending on priority of project, add relevant color to the card
             projectDiv.classList.add(`${project.priority}-priority`);
+
+            const projectRemoveBtn = document.createElement("span");
+            projectRemoveBtn.textContent = 'x';
+            projectRemoveBtn.classList.add("remove-project-btn");
+            projectRemoveBtn.addEventListener("click", (event) => {
+                projectManager.removeProject(event.target.parentNode.dataset.projectId);
+            });
 
             const heading = document.createElement("h2");
             heading.textContent = project.title;
@@ -21,6 +31,7 @@ const displayController = (function () {
             dueDate.textContent = `Due Date: ${project.dueDate}`;
             dueDate.classList.add("project-due-date");
 
+            projectDiv.appendChild(projectRemoveBtn);
             projectDiv.appendChild(heading);
             projectDiv.appendChild(description);
             projectDiv.appendChild(dueDate);
