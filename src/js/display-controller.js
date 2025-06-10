@@ -1,6 +1,7 @@
 const displayController = (function () {
     const render = function (projects) {
         const projectsDiv = document.querySelector("#projects");
+        projectsDiv.innerHTML = "";
 
         for (const project of projects) {
             const projectDiv = document.createElement("div");
