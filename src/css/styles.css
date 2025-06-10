@@ -78,7 +78,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
+}
+
+.modal > form > h2 {
+    margin-bottom: 0.5rem;
 }
 
 .modal > form > div {
@@ -104,6 +108,20 @@ body {
 
 .modal > form fieldset > legend {
     margin-bottom: 0.5rem;
+}
+
+.create-project-btn {
+    padding: 0.5em 1em;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.create-project-btn:hover {
+    background-color: #21867A;
 }
 
 .title {
