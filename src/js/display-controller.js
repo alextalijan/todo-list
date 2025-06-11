@@ -98,11 +98,15 @@ const displayController = (function () {
             taskListing.appendChild(taskDescription);
             taskList.appendChild(taskListing);
         }
+
         const addTaskButton = document.createElement("button");
         addTaskButton.type = "button";
         addTaskButton.classList.add("add-task-button");
         addTaskButton.textContent = "Add Task";
         addTaskButton.addEventListener("click", () => {
+            // Disable the button temporarily while adding the new task
+            addTaskButton.disabled = true;
+
             const newTaskInput = document.createElement("input");
             newTaskInput.type = "text";
 
@@ -122,8 +126,9 @@ const displayController = (function () {
             deleteTaskBtn.textContent = "❌";
             deleteTaskBtn.classList.add("delete-task-btn");
             deleteTaskBtn.addEventListener("click", () => {
-
                 li.remove();
+                // Allow new tasks to be added
+                addTaskButton.disabled = false;
             });
 
             const li = document.createElement("li");

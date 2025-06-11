@@ -276,6 +276,10 @@ body {
     background-color: #21867A;
 }
 
+.add-task-button:disabled {
+    opacity: 0.5;
+}
+
 .checked-task {
     text-decoration: line-through;
     opacity: 0.5;
