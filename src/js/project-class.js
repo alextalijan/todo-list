@@ -1,3 +1,5 @@
+import { pubSub } from "./pubsub.js";
+
 class Task {
 
     constructor(description) {
@@ -34,6 +36,7 @@ export class Project {
     addTask(taskDescription) {
         const newTask = new Task(taskDescription);
         this.checklist.push(newTask);
+        pubSub.publish("tasksChanged", this);
     }
 
     removeTask(taskID) {
@@ -43,6 +46,7 @@ export class Project {
                 break;
             }
         }
+        pubSub.publish("tasksChanged", this);
     }
 
     changeTitle(newTitle) {

@@ -220,6 +220,38 @@ body {
     opacity: 0.5;
 }
 
+.task-list {
+    list-style-type: none;
+}
+
+.task-list input {
+    padding: 0.2rem;
+}
+
+.confirm-task-btn,
+.delete-task-btn {
+    padding: 0.1rem;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+.add-task-button {
+    background-color: var(--accent-color);
+    transition: background-color 0.2s ease;
+    padding: 0.5em;
+    border-radius: 0.5rem;
+    color: #F9FAFB;
+    cursor: pointer;
+    font-size: 0.8rem;
+    border: none;
+    margin-top: 1rem;
+}
+
+.add-task-button:hover {
+    background-color: #21867A;
+}
+
 .checked-task {
     text-decoration: line-through;
     opacity: 0.5;

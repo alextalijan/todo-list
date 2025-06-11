@@ -77,6 +77,7 @@ const displayController = (function () {
 
         // Display tasks inside the project
         const taskList = document.createElement("ul");
+        taskList.classList.add("task-list");
         for (const task of project.checklist) {
             const taskDescription = document.createElement("span");
             taskDescription.textContent = task.description;
@@ -97,11 +98,42 @@ const displayController = (function () {
             taskListing.appendChild(taskDescription);
             taskList.appendChild(taskListing);
         }
+        const addTaskButton = document.createElement("button");
+        addTaskButton.type = "button";
+        addTaskButton.classList.add("add-task-button");
+        addTaskButton.textContent = "Add Task";
+        addTaskButton.addEventListener("click", () => {
+            const newTaskInput = document.createElement("input");
+
+            const confirmTaskBtn = document.createElement("button");
+            confirmTaskBtn.type = "button";
+            confirmTaskBtn.textContent = "✔️";
+            confirmTaskBtn.classList.add("confirm-task-btn");
+            confirmTaskBtn.addEventListener("click", () => {
+                project.addTask(newTaskInput.value.trim());
+            });
+
+            const deleteTaskBtn = document.createElement("button");
+            deleteTaskBtn.type = "button";
+            deleteTaskBtn.textContent = "❌";
+            deleteTaskBtn.classList.add("delete-task-btn");
+            deleteTaskBtn.addEventListener("click", () => {
+                li.remove();
+            });
+
+            const li = document.createElement("li");
+            li.appendChild(newTaskInput);
+            li.appendChild(confirmTaskBtn);
+            li.appendChild(deleteTaskBtn);
+            taskList.appendChild(li);
+        });
 
         projectModalContent.appendChild(projectModalHeading);
         projectModalContent.appendChild(projectModalDescription);
         projectModalContent.appendChild(projectModalDueDate);
         projectModalContent.appendChild(projectCloseBtn);
+        projectModalContent.appendChild(taskList);
+        projectModalContent.appendChild(addTaskButton);
 
         projectModal.showModal(); 
     };
