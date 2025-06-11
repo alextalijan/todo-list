@@ -122,9 +122,9 @@ const displayController = (function () {
             });
 
             const li = document.createElement("li");
-            li.appendChild(newTaskInput);
             li.appendChild(confirmTaskBtn);
             li.appendChild(deleteTaskBtn);
+            li.appendChild(newTaskInput);
             taskList.appendChild(li);
         });
 
