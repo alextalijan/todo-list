@@ -1,8 +1,11 @@
 import { projectManager } from "./project-manager.js";
 
 const displayController = (function () {
+    const projectsDiv = document.querySelector("#projects");
+    const projectModal = document.querySelector(".project-modal");
+    const projectModalContent = document.querySelector(".modal-content");
+
     const render = function (projects) {
-        const projectsDiv = document.querySelector("#projects");
         projectsDiv.innerHTML = "";
 
         for (const project of projects) {
@@ -11,6 +14,16 @@ const displayController = (function () {
             projectDiv.className = "project-card";
             // Depending on priority of project, add relevant color to the card
             projectDiv.classList.add(`${project.priority}-priority`);
+
+            // Make the project card clickable to open up the tasks for the project
+            projectDiv.addEventListener("click", (event) => {
+                for (const project of projects) {
+                    if (project.id === event.currentTarget.dataset.projectId) {
+                        renderProject(project);
+                        break;
+                    }
+                }
+            });
 
             const projectRemoveBtn = document.createElement("span");
             projectRemoveBtn.textContent = 'x';
@@ -39,7 +52,61 @@ const displayController = (function () {
         }
     };
 
-    return { render };
+    const renderProject = function (project) {
+        projectModalContent.innerHTML = "";
+        const projectModalHeading = document.createElement("h2");
+        projectModalHeading.textContent = project.title;
+        projectModalHeading.classList.add("project-modal-heading");
+
+        const projectModalDescription = document.createElement("p");
+        projectModalDescription.textContent = project.description;
+        projectModalDescription.classList.add("project-modal-description");
+
+
+        const projectModalDueDate = document.createElement("p");
+        projectModalDueDate.textContent = `Due date: ${project.dueDate}`;
+        projectModalDueDate.classList.add("project-modal-duedate");
+
+
+        const projectCloseBtn = document.createElement("span");
+        projectCloseBtn.textContent = 'x';
+        projectCloseBtn.classList.add("project-modal-close-btn");
+        projectCloseBtn.addEventListener("click", () => {
+            projectModal.close();
+        });
+
+        // Display tasks inside the project
+        const taskList = document.createElement("ul");
+        for (const task of project.checklist) {
+            const taskDescription = document.createElement("span");
+            taskDescription.textContent = task.description;
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            if (task.isDone) {
+                checkbox.checked = true;
+                taskDescription.classList.add("checked-task");
+            }
+            // If the check is clicked, update internal status of the task
+            checkbox.addEventListener("click", () => {
+                task.toggleStatus();
+            });
+
+            const taskListing = document.createElement("li");
+            taskListing.appendChild(checkbox);
+            taskListing.appendChild(taskDescription);
+            taskList.appendChild(taskListing);
+        }
+
+        projectModalContent.appendChild(projectModalHeading);
+        projectModalContent.appendChild(projectModalDescription);
+        projectModalContent.appendChild(projectModalDueDate);
+        projectModalContent.appendChild(projectCloseBtn);
+
+        projectModal.showModal(); 
+    };
+
+    return { render, renderProject };
 })();
 
 export { displayController };
