@@ -235,18 +235,20 @@ body {
     flex-direction: column;
     gap: 0.5rem;
     justify-content: center;
+    align-items: start;
 }
 
 .task-list > li {
     display: flex;
     gap: 0.8rem;
+    width: 100%;
 }
 
-.task-list input {
+.task-list input[type="text"] {
     padding: 0.2rem;
 }
 
-.task-list input:focus {
+.task-list input[type="text"]:focus {
     width: 50%;
 }
 

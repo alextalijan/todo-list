@@ -104,13 +104,17 @@ const displayController = (function () {
         addTaskButton.textContent = "Add Task";
         addTaskButton.addEventListener("click", () => {
             const newTaskInput = document.createElement("input");
+            newTaskInput.type = "text";
 
             const confirmTaskBtn = document.createElement("button");
             confirmTaskBtn.type = "button";
             confirmTaskBtn.textContent = "✔️";
             confirmTaskBtn.classList.add("confirm-task-btn");
             confirmTaskBtn.addEventListener("click", () => {
-                project.addTask(newTaskInput.value.trim());
+                // Stop the task from being added if it's blank
+                if (newTaskInput.value) {
+                    project.addTask(newTaskInput.value.trim());
+                }
             });
 
             const deleteTaskBtn = document.createElement("button");
@@ -118,6 +122,7 @@ const displayController = (function () {
             deleteTaskBtn.textContent = "❌";
             deleteTaskBtn.classList.add("delete-task-btn");
             deleteTaskBtn.addEventListener("click", () => {
+
                 li.remove();
             });
 
