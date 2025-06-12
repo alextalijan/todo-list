@@ -6,7 +6,7 @@ import { pubSub } from "./pubsub.js";
 
 // When a project is added or removed, automatically render them again
 pubSub.subscribe("projectsChanged", displayController.render);
-pubSub.subscribe("tasksChanged", displayController.renderProject)
+pubSub.subscribe("tasksChanged", displayController.renderProject);
 
 // Initiate event listeners for the form
 projectForm();
