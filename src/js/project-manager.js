@@ -41,7 +41,10 @@ const projectManager = (function() {
             if (project.id === projectId) {
                 project[attribute] = newValue;
                 pubSub.publish("projectsChanged", myProjects);
-                pubSub.publish("tasksChanged", project);
+                // Everything except for change of priority should trigger re-render of the project
+                if (attribute !== "priority") {
+                    pubSub.publish("tasksChanged", project);
+                }
                 break;
             }
         }

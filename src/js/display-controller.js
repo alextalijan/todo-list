@@ -44,6 +44,74 @@ const displayController = (function () {
             dueDate.textContent = `Due Date: ${project.dueDate}`;
             dueDate.classList.add("project-due-date");
 
+            // When a project card is right clicked, open up screen to change priority
+            projectDiv.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                const changePriorityPopup = document.createElement("form");
+                changePriorityPopup.classList.add("change-priority-popup");
+                changePriorityPopup.style.left = `${event.clientX - 10}px`;
+                changePriorityPopup.style.top = `${event.clientY - 10}px`;
+
+                const popupTitle = document.createElement("legend");
+                popupTitle.textContent = "Change Priority";
+
+                const popupFieldset = document.createElement("fieldset");
+                const lowPriorityRadio = document.createElement("input");
+                lowPriorityRadio.type = "radio";
+                lowPriorityRadio.name = "priority";
+                lowPriorityRadio.value = "low";
+                const lowPriorityLabel = document.createElement("label");
+                lowPriorityLabel.textContent = "low";
+                const lowPriorityDiv = document.createElement("div");
+                lowPriorityDiv.appendChild(lowPriorityLabel);
+                lowPriorityDiv.appendChild(lowPriorityRadio);
+
+                const mediumPriorityRadio = document.createElement("input");
+                mediumPriorityRadio.type = "radio";
+                mediumPriorityRadio.name = "priority";
+                mediumPriorityRadio.value = "medium";
+                const mediumPriorityLabel = document.createElement("label");
+                mediumPriorityLabel.textContent = "medium";
+                const mediumPriorityDiv = document.createElement("div");
+                mediumPriorityDiv.appendChild(mediumPriorityLabel);
+                mediumPriorityDiv.appendChild(mediumPriorityRadio);
+
+                const highPriorityRadio = document.createElement("input");
+                highPriorityRadio.type = "radio";
+                highPriorityRadio.name = "priority";
+                highPriorityRadio.value = "high";
+                const highPriorityLabel = document.createElement("label");
+                highPriorityLabel.textContent = "high";
+                const highPriorityDiv = document.createElement("div");
+                highPriorityDiv.appendChild(highPriorityLabel);
+                highPriorityDiv.appendChild(highPriorityRadio);
+
+                const confirmChangeBtn = document.createElement("button");
+                confirmChangeBtn.textContent = "Confirm";
+                confirmChangeBtn.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    const newPriority = document.querySelector(".change-priority-popup input[type='radio']:checked");
+
+                    if (newPriority) {
+                        projectManager.changeProjectAttribute(project.id, "priority", newPriority.value);
+                    }
+                })
+
+                popupFieldset.appendChild(popupTitle);
+                popupFieldset.appendChild(lowPriorityDiv);
+                popupFieldset.appendChild(mediumPriorityDiv);
+                popupFieldset.appendChild(highPriorityDiv);
+                
+                changePriorityPopup.appendChild(popupFieldset);
+                changePriorityPopup.appendChild(confirmChangeBtn);
+                document.body.appendChild(changePriorityPopup);
+
+                // When the mouse is removed from the popup, it disappears
+                changePriorityPopup.addEventListener("mouseleave", () => {
+                    document.body.removeChild(changePriorityPopup);
+                });
+            });
+
             projectDiv.appendChild(projectRemoveBtn);
             projectDiv.appendChild(heading);
             projectDiv.appendChild(description);

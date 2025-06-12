@@ -199,6 +199,14 @@ body {
     background-color: #FB8C8C;
 }
 
+.change-priority-popup {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    border-radius: 1rem;
+}
+
 .project-modal {
     height: 60%;
     width: clamp(500px, 80vw, 800px);
