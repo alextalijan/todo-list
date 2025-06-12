@@ -200,11 +200,31 @@ body {
 }
 
 .change-priority-popup {
+    padding: 1rem;
     position: absolute;
-    width: 200px;
-    height: 100px;
     background-color: white;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.change-priority-popup > fieldset > div {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.change-priority-popup button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #E0E0E0;
+    transition: background-color 0.2s ease;
+}
+
+.change-priority-popup button:hover {
+    background-color: #CCCCCC;
 }
 
 .project-modal {
@@ -223,17 +243,42 @@ body {
     margin-bottom: 1rem;
 }
 
+.project-modal-heading-change > input {
+    font-size: 3rem;
+    text-align: center;
+}
+
 .project-modal-description {
     opacity: 0.5;
     margin-bottom: 2rem;
 }
 
-.project-modal-duedate {
+.project-modal-description-change > textarea {
+    resize: none;
+    padding: 0.5rem;
+}
+
+.project-modal-duedate,
+.project-modal-duedate-change {
     position: fixed;
     top: 20px;
     left: 20px;
     font-size: 0.8rem;
     opacity: 0.5;
+}
+
+.project-modal-heading-change,
+.project-modal-description-change,
+.project-modal-duedate-change {
+    display: flex;
+    gap: 1rem;
+}
+
+.project-modal-heading-change > button,
+.project-modal-description-change > button,
+.project-modal-duedate-change > button {
+    border: none;
+    background-color: transparent;
 }
 
 .task-list {

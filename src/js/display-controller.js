@@ -61,30 +61,30 @@ const displayController = (function () {
                 lowPriorityRadio.name = "priority";
                 lowPriorityRadio.value = "low";
                 const lowPriorityLabel = document.createElement("label");
-                lowPriorityLabel.textContent = "low";
+                lowPriorityLabel.textContent = "Low";
                 const lowPriorityDiv = document.createElement("div");
-                lowPriorityDiv.appendChild(lowPriorityLabel);
                 lowPriorityDiv.appendChild(lowPriorityRadio);
+                lowPriorityDiv.appendChild(lowPriorityLabel);
 
                 const mediumPriorityRadio = document.createElement("input");
                 mediumPriorityRadio.type = "radio";
                 mediumPriorityRadio.name = "priority";
                 mediumPriorityRadio.value = "medium";
                 const mediumPriorityLabel = document.createElement("label");
-                mediumPriorityLabel.textContent = "medium";
+                mediumPriorityLabel.textContent = "Medium";
                 const mediumPriorityDiv = document.createElement("div");
-                mediumPriorityDiv.appendChild(mediumPriorityLabel);
                 mediumPriorityDiv.appendChild(mediumPriorityRadio);
+                mediumPriorityDiv.appendChild(mediumPriorityLabel);
 
                 const highPriorityRadio = document.createElement("input");
                 highPriorityRadio.type = "radio";
                 highPriorityRadio.name = "priority";
                 highPriorityRadio.value = "high";
                 const highPriorityLabel = document.createElement("label");
-                highPriorityLabel.textContent = "high";
+                highPriorityLabel.textContent = "High";
                 const highPriorityDiv = document.createElement("div");
-                highPriorityDiv.appendChild(highPriorityLabel);
                 highPriorityDiv.appendChild(highPriorityRadio);
+                highPriorityDiv.appendChild(highPriorityLabel);
 
                 const confirmChangeBtn = document.createElement("button");
                 confirmChangeBtn.textContent = "Confirm";
@@ -94,6 +94,8 @@ const displayController = (function () {
 
                     if (newPriority) {
                         projectManager.changeProjectAttribute(project.id, "priority", newPriority.value);
+                        // Hide the popup after selection
+                        document.body.removeChild(changePriorityPopup);
                     }
                 })
 
@@ -134,6 +136,7 @@ const displayController = (function () {
 
             const newHeadingInput = document.createElement("input");
             newHeadingInput.value = projectModalHeading.textContent;
+            newHeadingInput.maxLength = 27;
             newHeadingDiv.appendChild(newHeadingInput);
 
             // Add button to confirm the change and change the title
@@ -159,6 +162,8 @@ const displayController = (function () {
 
             const newDescriptionInput = document.createElement("textarea");
             newDescriptionInput.textContent = projectModalDescription.textContent;
+            newDescriptionInput.rows = 6;
+            newDescriptionInput.cols = 50;
             newDescriptionDiv.appendChild(newDescriptionInput);
 
             const confirmChangeBtn = document.createElement("button");
@@ -190,7 +195,9 @@ const displayController = (function () {
             confirmChangeBtn.textContent = "✔️";
             confirmChangeBtn.classList.add("confirm-change-btn");
             confirmChangeBtn.addEventListener("click", () => {
-                projectManager.changeProjectAttribute(project.id, "dueDate", newDueDateInput.value);
+                if (newDueDateInput.value) {
+                    projectManager.changeProjectAttribute(project.id, "dueDate", newDueDateInput.value);
+                }
             });
             newDueDateDiv.appendChild(confirmChangeBtn);
 
