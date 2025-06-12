@@ -2,8 +2,9 @@ import { pubSub } from "./pubsub.js";
 
 class Task {
 
-    constructor(description) {
+    constructor(description, parentProject) {
         this.id = crypto.randomUUID();
+        this.parentProject = parentProject;
         this.description = description;
         this.isDone = false;
     }
@@ -14,6 +15,7 @@ class Task {
         } else {
             this.isDone = true;
         }
+        pubSub.publish("tasksChanged", this.parentProject);
     }
 
     changeDescription(newDescription) {
@@ -34,7 +36,7 @@ export class Project {
     }
 
     addTask(taskDescription) {
-        const newTask = new Task(taskDescription);
+        const newTask = new Task(taskDescription, this);
         this.checklist.push(newTask);
         pubSub.publish("tasksChanged", this);
     }
