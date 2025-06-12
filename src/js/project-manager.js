@@ -30,7 +30,24 @@ const projectManager = (function() {
         return myProjects;
     };
 
-    return { addProject, removeProject, getProjects };
+    const changeProjectAttribute = function (projectId, attribute, newValue) {
+        // If the attribute is valid, go on to change it
+        const attributes = ["title", "description", "dueDate", "priority"];
+        if (!attributes.includes(attribute)) {
+            throw new Error("This attribute doesn't exist!");
+        }
+
+        for (const project of myProjects) {
+            if (project.id === projectId) {
+                project[attribute] = newValue;
+                pubSub.publish("projectsChanged", myProjects);
+                pubSub.publish("tasksChanged", project);
+                break;
+            }
+        }
+    }
+
+    return { addProject, removeProject, getProjects, changeProjectAttribute };
 })();
 
 export { projectManager };

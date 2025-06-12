@@ -1,4 +1,5 @@
 import { pubSub } from "./pubsub.js";
+import { projectManager } from "./project-manager.js";
 
 class Task {
 
@@ -49,21 +50,5 @@ export class Project {
             }
         }
         pubSub.publish("tasksChanged", this);
-    }
-
-    changeTitle(newTitle) {
-        this.title = newTitle;
-    }
-
-    changeDescription(newDescription) {
-        this.description = newDescription;
-    }
-
-    changePriority(newPriority) {
-        this.priority = newPriority;
-    }
-
-    changeDueDate(newDate) {
-        this.dueDate = newDate;
     }
 }

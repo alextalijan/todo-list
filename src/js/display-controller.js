@@ -58,14 +58,76 @@ const displayController = (function () {
         projectModalHeading.textContent = project.title;
         projectModalHeading.classList.add("project-modal-heading");
 
+        // When either heading, description or date are double clicked, they are prompted for change
+        projectModalHeading.addEventListener("dblclick", () => {
+            // New input field has to be in a div with the confirm button to be in the same line
+            const newHeadingDiv = document.createElement("div");
+            newHeadingDiv.classList.add("project-modal-heading-change");
+
+            const newHeadingInput = document.createElement("input");
+            newHeadingInput.value = projectModalHeading.textContent;
+            newHeadingDiv.appendChild(newHeadingInput);
+
+            // Add button to confirm the change and change the title
+            const confirmChangeBtn = document.createElement("button");
+            confirmChangeBtn.textContent = "✔️";
+            confirmChangeBtn.classList.add("confirm-change-btn");
+            confirmChangeBtn.addEventListener("click", () => {
+                projectManager.changeProjectAttribute(project.id, "title",newHeadingInput.value);
+            });
+            newHeadingDiv.appendChild(confirmChangeBtn);
+
+            // Put it instead of current heading
+            projectModalHeading.parentNode.replaceChild(newHeadingDiv, projectModalHeading);
+        });
+
         const projectModalDescription = document.createElement("p");
         projectModalDescription.textContent = project.description;
         projectModalDescription.classList.add("project-modal-description");
+
+        projectModalDescription.addEventListener("dblclick", () => {
+            const newDescriptionDiv = document.createElement("div");
+            newDescriptionDiv.classList.add("project-modal-description-change");
+
+            const newDescriptionInput = document.createElement("textarea");
+            newDescriptionInput.textContent = projectModalDescription.textContent;
+            newDescriptionDiv.appendChild(newDescriptionInput);
+
+            const confirmChangeBtn = document.createElement("button");
+            confirmChangeBtn.textContent = "✔️";
+            confirmChangeBtn.classList.add("confirm-change-btn");
+            confirmChangeBtn.addEventListener("click", () => {
+                projectManager.changeProjectAttribute(project.id, "description", newDescriptionInput.value);
+            });
+            newDescriptionDiv.appendChild(confirmChangeBtn);
+
+            // Put it instead of current heading
+            projectModalDescription.parentNode.replaceChild(newDescriptionDiv, projectModalDescription);
+        });
 
 
         const projectModalDueDate = document.createElement("p");
         projectModalDueDate.textContent = `Due date: ${project.dueDate}`;
         projectModalDueDate.classList.add("project-modal-duedate");
+
+        projectModalDueDate.addEventListener("dblclick", () => {
+            const newDueDateDiv = document.createElement("div");
+            newDueDateDiv.classList.add("project-modal-duedate-change");
+
+            const newDueDateInput = document.createElement("input");
+            newDueDateInput.type = "date";
+            newDueDateDiv.appendChild(newDueDateInput);
+
+            const confirmChangeBtn = document.createElement("button");
+            confirmChangeBtn.textContent = "✔️";
+            confirmChangeBtn.classList.add("confirm-change-btn");
+            confirmChangeBtn.addEventListener("click", () => {
+                projectManager.changeProjectAttribute(project.id, "dueDate", newDueDateInput.value);
+            });
+            newDueDateDiv.appendChild(confirmChangeBtn);
+
+            projectModalDueDate.parentNode.replaceChild(newDueDateDiv, projectModalDueDate);
+        });
 
 
         const projectCloseBtn = document.createElement("span");
