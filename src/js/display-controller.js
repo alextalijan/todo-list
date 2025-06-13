@@ -1,4 +1,5 @@
 import { projectManager } from "./project-manager.js";
+import { pubSub } from "./pubsub.js";
 
 const displayController = (function () {
     const projectsDiv = document.querySelector("#projects");
@@ -178,7 +179,6 @@ const displayController = (function () {
             projectModalDescription.parentNode.replaceChild(newDescriptionDiv, projectModalDescription);
         });
 
-
         const projectModalDueDate = document.createElement("p");
         projectModalDueDate.textContent = `Due date: ${project.dueDate}`;
         projectModalDueDate.classList.add("project-modal-duedate");
@@ -231,6 +231,20 @@ const displayController = (function () {
             });
 
             const taskListing = document.createElement("li");
+            // When a task is double clicked, intiate adding a new task with the same description
+            // to re-use code instead of writing similar code from scratch
+            taskListing.addEventListener("dblclick", () => {
+                const editedTaskDescription = taskDescription.textContent;
+                // Remove the old task
+                project.removeTask(taskDescription.textContent);
+                
+                // Add the new task with the same description
+                const addTaskButton = document.querySelector(".add-task-button");
+                addTaskButton.click();
+                const editedTask = document.querySelector(".task-list > li:last-child > input");
+                editedTask.value = editedTaskDescription;
+            });
+
             taskListing.appendChild(checkbox);
             taskListing.appendChild(taskDescription);
             taskList.appendChild(taskListing);

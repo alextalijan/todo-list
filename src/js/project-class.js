@@ -21,6 +21,7 @@ class Task {
 
     changeDescription(newDescription) {
         this.description = newDescription;
+        pubSub.publish("tasksChanged", this.parentProject);
     }
 }
 
@@ -42,9 +43,9 @@ export class Project {
         pubSub.publish("tasksChanged", this);
     }
 
-    removeTask(taskID) {
+    removeTask(taskDescription) {
         for (let i = 0; i < this.checklist.length; i++) {
-            if (this.checklist[i].id === taskID) {
+            if (this.checklist[i].description.toLowerCase() === taskDescription.toLowerCase()) {
                 this.checklist.splice(i, 1);
                 break;
             }
