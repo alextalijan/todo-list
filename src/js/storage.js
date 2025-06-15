@@ -24,8 +24,6 @@ const Storage = (function () {
 
     function updateLocalStorage(projects) {
         if (storageAvailable("localStorage")) {
-            window.localStorage.clear();
-            
             const projectConstructors = [];
             for (const project of projects) {
                 // Only save constructors for existing projects
