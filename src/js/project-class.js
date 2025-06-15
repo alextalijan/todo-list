@@ -22,12 +22,6 @@ class Task {
         this.description = newDescription;
         pubSub.publish("tasksChanged", this.parentProject);
     }
-
-    toJSON() {
-        // Skip parentProject to avoid circular reference while turning into JSON
-        const { parentProject, ...rest } = this;
-        return rest;
-    }
 }
 
 export class Project {
@@ -42,8 +36,8 @@ export class Project {
         this.checklist = [];
     }
 
-    addTask(taskDescription) {
-        const newTask = new Task(taskDescription, this);
+    addTask(taskDescription, isDone) {
+        const newTask = new Task(taskDescription, this, isDone);
         this.checklist.push(newTask);
         pubSub.publish("tasksChanged", this);
     }

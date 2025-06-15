@@ -1,3 +1,5 @@
+import { Project } from "./project-class.js";
+
 const Storage = (function () {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
@@ -24,30 +26,45 @@ const Storage = (function () {
         if (storageAvailable("localStorage")) {
             window.localStorage.clear();
             
-            const projectsConstructors = [];
+            const projectConstructors = [];
             for (const project of projects) {
                 // Only save constructors for existing projects
-                const { id, checklist, ...constructors } = project;
-                for (const task of project) {
-                    const { id, parentProject, ...taskConstructors } = task;
-                    if (constructors.checklist) {
-                        constructors.checklist.push(taskConstructors);
-                    } else {
-                        constructors.checklist = [taskConstructors];
-                    }
+                const { id, checklist, ...constructor } = project;
+                constructor.taskConstructors = [];
+
+                for (const task of project.checklist) {
+                    const { id, parentProject, ...taskConstructor } = task;
+                    constructor.taskConstructors.push(taskConstructor);
                 }
 
-                projectsConstructors.push(constructors);
+                projectConstructors.push(constructor);
             }
 
-            window.localStorage.setItem("projects", projectsConstructors);
+            window.localStorage.setItem("projects", JSON.stringify(projectConstructors));
         }
     }
 
     function getStoredProjects() {
-        if (storageAvailable("localStorage") && window.localStorage.length > 0) {
-             projectManager.loadProjects(JSON.parse(window.localStorage.getItem("projects")));
+        const projectConstructors = JSON.parse(window.localStorage.getItem("projects"));
+        const storedProjects = [];
+
+        for (const constructor of projectConstructors) {
+            const project = new Project(
+                constructor.title,
+                constructor.description,
+                constructor.dueDate,
+                constructor.priority
+            );
+
+            // Generate all tasks of the project
+            for (const taskConstructor of constructor.taskConstructors) {
+                project.addTask(taskConstructor.description, taskConstructor.isDone);
+            }
+
+            storedProjects.push(project);
         }
+
+        return storedProjects;
     }
 
     return { storageAvailable, updateLocalStorage, getStoredProjects };

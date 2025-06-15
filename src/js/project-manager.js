@@ -1,15 +1,14 @@
 import { pubSub } from "./pubsub.js";
-import { Project } from "./project-class.js";
+import { Storage } from "./storage.js";
 
 const projectManager = (function() {
-    const defaultProject = new Project(
-        "Default Project",
-        "This is where you're able to put simple todos separated from specific projects.",
-        new Date().toISOString().split('T')[0], // Today's date
-        "high"
-    );
-    const myProjects = [];
-    myProjects.push(defaultProject);
+
+    let myProjects;
+    if (Storage.storageAvailable("localStorage") && window.localStorage.getItem("projects")) {
+        myProjects = Storage.getStoredProjects();
+    } else {
+        myProjects = [];
+    }
 
     const addProject = function (project) {
         myProjects.push(project);
