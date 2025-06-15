@@ -1,13 +1,12 @@
 import { pubSub } from "./pubsub.js";
-import { projectManager } from "./project-manager.js";
 
 class Task {
 
-    constructor(description, parentProject) {
+    constructor(description, parentProject, isDone = false) {
         this.id = crypto.randomUUID();
         this.parentProject = parentProject;
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     toggleStatus() {
@@ -22,6 +21,12 @@ class Task {
     changeDescription(newDescription) {
         this.description = newDescription;
         pubSub.publish("tasksChanged", this.parentProject);
+    }
+
+    toJSON() {
+        // Skip parentProject to avoid circular reference while turning into JSON
+        const { parentProject, ...rest } = this;
+        return rest;
     }
 }
 

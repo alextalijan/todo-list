@@ -1,5 +1,4 @@
 import { projectManager } from "./project-manager.js";
-import { pubSub } from "./pubsub.js";
 
 const displayController = (function () {
     const projectsDiv = document.querySelector("#projects");
